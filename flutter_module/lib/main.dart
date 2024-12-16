@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boost/flutter_boost.dart';
+import 'package:flutter_module/page/main_page.dart';
+import 'package:flutter_module/page/simple_page.dart';
 
 void main() {
   ///这里的CustomFlutterBinding调用务必不可缺少，用于控制Boost状态的resume和pause
   CustomFlutterBinding();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 
@@ -16,7 +18,7 @@ class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  _MyAppState createState() => _MyAppState();
+  createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -36,10 +38,9 @@ class _MyAppState extends State<MyApp> {
       return CupertinoPageRoute(
           settings: settings,
           builder: (_) {
-            Map<String, dynamic> map = settings.arguments as Map<String, dynamic> ;
-            String data = map['data'] as String;
+            Map<String, dynamic> parameters = settings.arguments as Map<String, dynamic>? ?? {};
             return MainPage(
-              data: data,
+              parameters: parameters,
             );
           });
     },
@@ -47,10 +48,9 @@ class _MyAppState extends State<MyApp> {
       return CupertinoPageRoute(
           settings: settings,
           builder: (_) {
-            Map<String, dynamic> map = settings.arguments as Map<String, dynamic>;
-            String data = map['data'] as String;
+            Map<String, dynamic> parameters = settings.arguments as Map<String, dynamic>? ?? {};
             return SimplePage(
-              data: data,
+              parameters: parameters,
             );
           });
     },
@@ -81,22 +81,3 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class MainPage extends StatelessWidget {
-  const MainPage({super.key, required Object data});
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('Main Page')),
-    );
-  }
-}
-
-class SimplePage extends StatelessWidget {
-  const SimplePage({super.key, required Object data});
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body:  Center(child: Text('SimplePage')),
-    );
-  }
-}
