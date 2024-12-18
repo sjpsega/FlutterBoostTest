@@ -1,10 +1,3 @@
-/*
- * @Author: sjpsega
- * @Date: 2024-12-16 17:31:36
- * @LastEditors: sjpsega
- * @LastEditTime: 2024-12-16 20:09:29
- * @Description: 
- */
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -17,20 +10,20 @@ class SimplePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              BoostNavigator.instance
+                  .pop({"data": "return data from Flutter - SimplePage"});
+            }),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('SimplePage', style: TextStyle(fontSize: 16)),
             Text('data: ${json.encode(parameters ?? {})}'),
-            GestureDetector(
-              child: const Text('Pop Current Page',
-                  style: TextStyle(color: Colors.blue)),
-              onTap: () {
-                BoostNavigator.instance
-                    .pop({"data": "return data from Flutter - SimplePage"});
-              },
-            ),
           ],
         ),
       ),

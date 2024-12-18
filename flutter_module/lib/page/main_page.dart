@@ -1,14 +1,5 @@
-/*
- * @Author: sjpsega
- * @Date: 2024-12-16 17:30:41
- * @LastEditors: sjpsega
- * @LastEditTime: 2024-12-16 20:09:43
- * @Description: 
- */
-
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boost/flutter_boost.dart';
 
@@ -19,6 +10,14 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              BoostNavigator.instance
+                  .pop({"data": "return data from Flutter - MainPage"});
+            }),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -43,14 +42,6 @@ class MainPage extends StatelessWidget {
                     );
                   },
                 );
-              },
-            ),
-            GestureDetector(
-              child: const Text('Pop Current Page',
-                  style: TextStyle(color: Colors.blue)),
-              onTap: () {
-                BoostNavigator.instance
-                    .pop({"data": "return data from Flutter - MainPage"});
               },
             ),
           ],

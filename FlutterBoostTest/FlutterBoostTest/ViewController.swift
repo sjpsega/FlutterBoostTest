@@ -36,8 +36,16 @@ class ViewController: UIViewController {
         }
 
         //这个是页面关闭并且返回数据的回调，回调实际需要根据您的Delegate中的popRoute来调用
-        options.onPageFinished = { dic in
+        options.onPageFinished = { [weak self] (dic) in
             print("onPageFinished callback data: \(dic ?? [:])")
+            
+            let jsonData = try? JSONSerialization.data(withJSONObject: dic ?? [:], options: .prettyPrinted)
+            let jsonString = String(data: jsonData ?? Data(), encoding: .utf8) ?? "{}"
+            let alert = UIAlertController(title: "Flutter callback data", message: jsonString, preferredStyle: .alert)
+            self?.present(alert, animated: true, completion: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                alert.dismiss(animated: true, completion: nil)
+            }
         }
 
         FlutterBoost.instance().open(options)
